@@ -17,7 +17,8 @@ const defaultOptions = {
 }
 
 function fastifyCors (fastify, opts, next) {
-  fastify.decorateRequest('corsPreflightEnabled', false)
+  if (!fastify.hasRequestDecorator('corsPreflightEnabled'))
+    fastify.decorateRequest('corsPreflightEnabled', false)
 
   let hideOptionsRoute = true
   if (typeof opts === 'function') {
